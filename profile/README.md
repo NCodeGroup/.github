@@ -3,6 +3,7 @@
 Open-source .NET libraries and the tooling around them.
 
 - **[Identity](https://github.com/NCodeGroup/Identity)**: an OAuth 2.0 and OpenID Connect server and client library family for .NET, with JOSE (JWS, JWE, JWK) support.
+- **[coordination](https://github.com/NCodeGroup/coordination)**: coordination for the nodes of a cluster, with sessions, leases, records, counters and notifications over interchangeable providers that declare their guarantees.
 - **[identity-platform](https://github.com/NCodeGroup/identity-platform)**: infrastructure as code for the hosted platform.
 - **[project-template](https://github.com/NCodeGroup/project-template)**: a Copier template for repositories worked through a plan-then-execute AI coding workflow.
 - **[code-review](https://github.com/NCodeGroup/code-review)**: AI pull request review for NCodeGroup repositories, posted as `ncode-review[bot]`.
