@@ -1,0 +1,41 @@
+name: Task
+description: A chore, a decision record or a documentation change, small enough for one plan.
+type: Task
+body:
+  - type: input
+    id: part-of
+    attributes:
+      label: Part of
+      description: >-
+        The epic this belongs to, such as `#12`, if any. After filing, add this issue to the epic as a sub-issue: that
+        link, not this line, is the record.
+      placeholder: "#12"
+    validations:
+      required: false
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: The outcome, and how its acceptance is checked.
+      placeholder: |
+        Outcome: ...
+        Acceptance: ...
+    validations:
+      required: true
+  - type: textarea
+    id: not-in-this-issue
+    attributes:
+      label: Not in this issue
+      description: What it leaves out, naming the issue that takes each part, when one does.
+    validations:
+      required: false
+  - type: textarea
+    id: depends-on
+    attributes:
+      label: Depends on
+      description: >-
+        The issues it is blocked by, such as `#41, #42.`, or `Nothing.` After filing, add each as a "blocked by" link:
+        the links are the record.
+      placeholder: Nothing.
+    validations:
+      required: false

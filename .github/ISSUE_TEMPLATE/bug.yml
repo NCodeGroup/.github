@@ -1,0 +1,49 @@
+name: Bug
+description: Behavior that is wrong. Report a vulnerability privately instead, as the security policy says.
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        A bug's outcome is the behavior it should have, and its acceptance is the reproduction, which then passes.
+        Report a security vulnerability privately, on the repository's Security tab, never in an issue.
+  - type: input
+    id: part-of
+    attributes:
+      label: Part of
+      description: >-
+        The epic this belongs to, such as `#12`, if any. After filing, add this issue to the epic as a sub-issue: that
+        link, not this line, is the record.
+      placeholder: "#12"
+    validations:
+      required: false
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: >-
+        What happens, what should happen instead, and how to reproduce it: the steps, the version or commit, and the
+        output or error.
+      placeholder: |
+        What happens: ...
+        What should happen: ...
+        How to reproduce: ...
+    validations:
+      required: true
+  - type: textarea
+    id: not-in-this-issue
+    attributes:
+      label: Not in this issue
+      description: What it leaves out, naming the issue that takes each part, when one does.
+    validations:
+      required: false
+  - type: textarea
+    id: depends-on
+    attributes:
+      label: Depends on
+      description: >-
+        The issues it is blocked by, such as `#41, #42.`, or `Nothing.` After filing, add each as a "blocked by" link:
+        the links are the record.
+      placeholder: Nothing.
+    validations:
+      required: false
