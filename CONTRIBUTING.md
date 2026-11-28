@@ -47,6 +47,11 @@ A pull request is acceptable once CI passes, every discussion on it has been fix
 to, and a maintainer has reviewed it. A maintainer merges it, with a merge commit or by rebasing, unless the
 repository says otherwise.
 
+Where a repository runs NCode Review (its `.github/workflows/code-review.yml`), `ncode-review[bot]` reviews each pull
+request when it opens or is marked ready; after a push, a writer comments `/review` to have the new commit reviewed. A
+clean review is approved by `ncode-review-approver[bot]`, whose approval meets a required approval. A pull request from
+a fork is reviewed once it isn't a draft, and never approved, so a maintainer approves it.
+
 ## Commit Attribution
 
 Commits record the people who wrote them, so avoid AI agent attribution: don't add a `Co-authored-by:` trailer naming

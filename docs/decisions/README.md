@@ -65,3 +65,4 @@ records are indexed in [project-template/](project-template/README.md).
 
 | ADR | Decision | Status |
 | --- | --- | --- |
+| [1000](1000-the-review-workflow-template-follows-the-project-templates-caller.md) | The review workflow template follows the project template's caller | Accepted |
