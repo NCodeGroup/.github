@@ -243,7 +243,7 @@ The [gold criteria](https://www.bestpractices.dev/en/criteria/2), 23 in all.
 | Criterion | Req | N/A | URL | Answer and evidence |
 | --- | --- | --- | --- | --- |
 | `code_review_standards` | MUST | yes | yes | **Met**: [CONTRIBUTING.md](../CONTRIBUTING.md) says what a reviewer checks in each pull request and when one is acceptable. |
-| `two_person_review` | MUST | no | no | **Person**: at least half of the changes reviewed before release by someone other than their author; Unmet with one maintainer. |
+| `two_person_review` | MUST | no | no | **Person**: at least half of the changes reviewed before release by someone other than their author; Unmet with one maintainer, as NCode Review's approval is a bot's. |
 | `build_reproducible` | MUST | yes | yes | **Check**: N/A when no build occurs; otherwise Met once a rebuild of a release's tag is shown to match it. |
 | `test_invocation` | MUST | no | yes | **Gap**: the project has no test command yet. |
 | `test_continuous_integration` | MUST | no | yes | **Met**: `.github/workflows/ci.yml` runs the build and the tests on every pull request. |
@@ -273,7 +273,7 @@ These criteria need people or their settings, which the template can't supply. C
 level to expect is known up front:
 
 - `access_continuity` (silver MUST): a second owner of the GitHub organization, as [GOVERNANCE.md](../GOVERNANCE.md#continuity) says. With one maintainer, silver stops below 100% here, whatever else is met.
-- `bus_factor` (silver SHOULD, gold MUST) and `two_person_review` (gold MUST): a second maintainer.
+- `bus_factor` (silver SHOULD, gold MUST) and `two_person_review` (gold MUST): a second maintainer; NCode Review's approval is a bot's, not a person's.
 - `contributors_unassociated` (gold MUST): two significant contributors from different organizations.
 - `require_2FA` (gold MUST) and `secure_2FA` (gold SHOULD): the GitHub organization requires two-factor authentication, with secure methods only; only an owner can confirm it. Autofill's answer ('GitHub requires 2FA as of March 2023') is not evidence of the organization's own setting: an owner confirms it, and it stays Unmet until then.
 - `security_review` (gold MUST): a security review in the last five years, recorded in [assurance-case.md](assurance-case.md#security-reviews).
