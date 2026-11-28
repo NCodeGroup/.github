@@ -1,11 +1,13 @@
 # Written by Copier; never edit by hand. Change an answer with .template\Update-Project.ps1 -Data.
-_commit: v0.121.0
+_commit: v0.121.1
 _src_path: https://github.com/NCodeGroup/project-template.git
+author_name: NCode Group
 build_command: ''
 code_review: false
 conduct_contact: ''
+file_headers: false
 git_host: github
-license: ''
+license: Apache-2.0
 project_description: ''
 project_name: .github
 stack: other

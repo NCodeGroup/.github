@@ -37,9 +37,9 @@ The [passing criteria](https://www.bestpractices.dev/en/criteria/0), 67 in all.
 | `interact` | MUST | no | no | **Check**: [README.md](../README.md) says how to get the software, the GitHub issue tracker takes bug reports and enhancement requests, and [CONTRIBUTING.md](../CONTRIBUTING.md) says how to contribute. |
 | `contribution` | MUST | no | yes | **Met**: [CONTRIBUTING.md](../CONTRIBUTING.md) says to start each change with an issue, work on a short-lived branch and open a pull request into the default branch. |
 | `contribution_requirements` | SHOULD | no | yes | **Met**: [CONTRIBUTING.md](../CONTRIBUTING.md) says what a change must do and when a pull request is acceptable, and that [AGENTS.md](../AGENTS.md) is the index of the conventions, with `.editorconfig`. |
-| `floss_license` | MUST | no | no | **Gap**: the `license` answer is blank, so the project has no license; set one with `.\.template\Update-Project.ps1 -Data @{ license = 'Apache-2.0' }`. |
-| `floss_license_osi` | SUGGESTED | no | no | **Gap**: no license yet. |
-| `license_location` | MUST | no | yes | **Check**: Met once the license's text is a `LICENSE` file at the repository root. |
+| `floss_license` | MUST | no | no | **Met**: the `Apache-2.0` license, which autofill reads. |
+| `floss_license_osi` | SUGGESTED | no | no | **Check**: Met when the OSI approves `Apache-2.0`, as it approves Apache-2.0 and MIT. |
+| `license_location` | MUST | no | yes | **Met**: `LICENSE.txt` at the repository root. |
 | `documentation_basics` | MUST | yes | no | **Check**: [README.md](../README.md) describes the software and how to use it, and [CONTRIBUTING.md](../CONTRIBUTING.md) how to build and change it. |
 | `documentation_interface` | MUST | yes | no | **Check**: a reference for the software's inputs and outputs, such as a usage section in [README.md](../README.md). |
 | `sites_https` | MUST | no | no | **Met**: GitHub serve the repository and the downloads over HTTPS; autofill. |
@@ -226,8 +226,8 @@ The [gold criteria](https://www.bestpractices.dev/en/criteria/2), 23 in all.
 | `achieve_silver` | MUST | no | no | **Check**: the site sets it once the silver level is earned. |
 | `bus_factor` | MUST | no | yes | **Person**: two or more people who could carry the project on; Unmet with one maintainer, which keeps gold from being earned. |
 | `contributors_unassociated` | MUST | no | yes | **Person**: at least two significant contributors from different organizations. |
-| `copyright_per_file` | MUST | no | no | **Check**: Met when `git grep -L "Copyright" -- '*.<ext>'` prints no source file; Unmet until each source file starts with a copyright line. The scripts the template owns, in `.template/`, `build/`, `.claude/hooks/` and `.githooks/`, carry the template's own copyright line ([ADR-0038](decisions/project-template/0038-the-templates-scripts-carry-the-templates-copyright-and-license.md)). |
-| `license_per_file` | MUST | no | no | **Check**: Met when `git grep -L "SPDX-License-Identifier" -- '*.<ext>'` prints no source file; Unmet until each source file has an `SPDX-License-Identifier` line. The scripts the template owns carry the template's `SPDX-License-Identifier: MIT` ([ADR-0038](decisions/project-template/0038-the-templates-scripts-carry-the-templates-copyright-and-license.md)). |
+| `copyright_per_file` | MUST | no | no | **Check**: Met when `git grep -L "Copyright" -- '*.<ext>'` prints no source file; Unmet until each source file starts with a copyright line. `.\.template\Update-Project.ps1 -Data @{ file_headers = $true }` turns on the check. The scripts the template owns, in `.template/`, `build/`, `.claude/hooks/` and `.githooks/`, carry the template's own copyright line ([ADR-0038](decisions/project-template/0038-the-templates-scripts-carry-the-templates-copyright-and-license.md)). |
+| `license_per_file` | MUST | no | no | **Check**: Met when `git grep -L "SPDX-License-Identifier" -- '*.<ext>'` prints no source file; Unmet until each source file has an `SPDX-License-Identifier` line. `.\.template\Update-Project.ps1 -Data @{ file_headers = $true }` turns on the check. The scripts the template owns carry the template's `SPDX-License-Identifier: MIT` ([ADR-0038](decisions/project-template/0038-the-templates-scripts-carry-the-templates-copyright-and-license.md)). |
 
 ### Change Control
 
