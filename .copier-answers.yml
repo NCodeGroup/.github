@@ -3,7 +3,7 @@ _commit: v0.121.1
 _src_path: https://github.com/NCodeGroup/project-template.git
 author_name: NCode Group
 build_command: ''
-code_review: false
+code_review: true
 conduct_contact: ''
 file_headers: false
 git_host: github
