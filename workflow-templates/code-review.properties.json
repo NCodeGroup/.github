@@ -1,0 +1,6 @@
+{
+  "name": "NCode code review",
+  "description": "Reviews each pull request with NCode Review, NCodeGroup's review bot, and approves a clean one. The caller the project template gives its projects.",
+  "iconName": "octicon code-review",
+  "categories": ["Automation"]
+}

@@ -1,0 +1,45 @@
+name: Workflow template check
+
+# Keeps workflow-templates/code-review.yml in step with the NCode Review caller the project template gives its projects:
+# every Monday, on demand, and on each push to the default branch that changes the workflow template or this check,
+# tools/Test-WorkflowTemplate.ps1 -Issue compares the two below their `on:` lines and keeps one open issue labeled
+# workflow-template while they differ, closing it once they match. Dependabot can't keep the workflow template's pin
+# current, because it reads only .github/workflows/ and the root action.yml. ADR-1000 in docs/decisions/ says why.
+
+on:
+  schedule:
+    - cron: '30 7 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - workflow-templates/**
+      - tools/Test-WorkflowTemplate.ps1
+      - .github/workflows/workflow-template-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-template-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Workflow template check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Opens, edits and closes the workflow-template issue; the only write the workflow needs.
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Open, update or close the workflow template issue
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: ./tools/Test-WorkflowTemplate.ps1 -Issue
