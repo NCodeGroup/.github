@@ -47,8 +47,12 @@ offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders
-responsible for enforcement, the maintainers [GOVERNANCE.md](GOVERNANCE.md) lists, privately: on the repository's **Security** tab, choose **Report a vulnerability** and start the title with
-"Conduct:". The report reaches the maintainers only. All complaints will be reviewed and investigated promptly and fairly.
+responsible for enforcement, the maintainers
+[GOVERNANCE.md](https://github.com/NCodeGroup/.github/blob/main/GOVERNANCE.md) describes, privately: on the
+**Security** tab of the repository where it happened, choose **Report a vulnerability** and start the title with
+"Conduct:". Where that repository doesn't offer it, or the behavior wasn't in one repository, report it the same way
+on [NCodeGroup/.github](https://github.com/NCodeGroup/.github/security/advisories/new). The report reaches the
+maintainers only. All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the reporter of any incident.
 

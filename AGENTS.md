@@ -38,4 +38,4 @@ How `/ship-plan` lands a reviewed plan. `integrate`: `pull-request` pushes the p
 
 ## Conventions
 
-- (Add the project's conventions here, and any template rule this project overrides.)
+- This is the organization's `.github` repository: GitHub shows its root `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `GOVERNANCE.md` as the defaults for every NCodeGroup repository that has none of its own, and `profile/README.md` as the organization's profile. Keep those files written for the whole organization, not for this repository: link with absolute `https://github.com/NCodeGroup/...` URLs, and say that a repository's own file takes precedence. The same holds for any other default community file added here, such as `SUPPORT.md` or `.github/ISSUE_TEMPLATE/`.
