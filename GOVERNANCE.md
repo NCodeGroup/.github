@@ -29,6 +29,16 @@ the change there.
 Versions follow Semantic Versioning. Each repository says how it releases: in a repository made from the
 [project template](https://github.com/NCodeGroup/project-template), the Landing section of its `AGENTS.md`.
 
+## Repository Names
+
+A maintainer names a new repository by one rule, and renames one that doesn't follow it
+([ADR-1001](https://github.com/NCodeGroup/.github/blob/main/docs/decisions/1001-a-dotnet-repository-is-named-for-its-root-namespace-and-every-other-repository-in-lowercase.md)):
+
+- A repository of .NET code is named for its root namespace without the leading `NCode.`, in the namespace's casing:
+  `NCode.Buffers` is `Buffers`.
+- Every other repository is named in lowercase kebab case, such as `project-template`.
+- An old name is never reused, so GitHub's redirect from it keeps working.
+
 ## Continuity
 
 Every repository, with its issues, decision records, build, release automation and documentation, is in the NCodeGroup

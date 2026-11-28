@@ -19,3 +19,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   (Goal, Design, Stories), and Feature, Bug and Task (Part of, What, Not in this issue, Depends on), each setting its
   issue type, so an issue filed by hand reads like one `/decompose-issue` files. Blank issues stay available, and the
   chooser links the security policy for vulnerabilities.
+- The default `GOVERNANCE.md` names repositories by one rule: a .NET repository for its root namespace without the
+  leading `NCode.`, such as `Buffers`, and every other repository in lowercase kebab case (ADR-1001).
