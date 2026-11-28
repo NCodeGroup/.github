@@ -15,3 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   one-time setup in its header. A weekly check keeps one issue labeled `workflow-template` open while it differs from
   the template's caller (ADR-1000).
 - The default `CONTRIBUTING.md` says how NCode Review reviews and approves a pull request where a repository runs it.
+- Default issue forms for every NCodeGroup repository without a `.github/ISSUE_TEMPLATE/` folder of its own: Epic
+  (Goal, Design, Stories), and Feature, Bug and Task (Part of, What, Not in this issue, Depends on), each setting its
+  issue type, so an issue filed by hand reads like one `/decompose-issue` files. Blank issues stay available, and the
+  chooser links the security policy for vulnerabilities.

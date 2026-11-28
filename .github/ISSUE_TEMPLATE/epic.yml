@@ -1,0 +1,35 @@
+name: Epic
+description: Large work, more than one plan, split into stories filed as its sub-issues.
+type: Epic
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        An epic is work bigger than one plan. Its stories are filed as its sub-issues, each a Feature, Bug or Task
+        that fits one plan, and their "blocked by" links give their order. `/decompose-issue` splits an epic into
+        ready stories and files them.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What is true when the epic is done, and why it matters.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Design
+      description: A link to its design in `docs/designs/`, or `None.`
+      placeholder: None.
+    validations:
+      required: true
+  - type: textarea
+    id: stories
+    attributes:
+      label: Stories
+      description: >-
+        Leave this as it is: the stories are this epic's sub-issues, and this section names none of them, so no list
+        goes stale.
+      value: The stories are this epic's sub-issues, in the order their "blocked by" links give.
+    validations:
+      required: false

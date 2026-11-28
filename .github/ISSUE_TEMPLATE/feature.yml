@@ -1,0 +1,49 @@
+name: Feature
+description: A capability added or changed, small enough for one plan.
+type: Feature
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        A story is ready to plan when its outcome, what is not in it and its acceptance are stated, its blockers are
+        closed or will be, every decision it needs is recorded, and it fits one plan. A small, plain feature needs no
+        more than What.
+  - type: input
+    id: part-of
+    attributes:
+      label: Part of
+      description: >-
+        The epic this belongs to, such as `#12`, if any. After filing, add this issue to the epic as a sub-issue: that
+        link, not this line, is the record.
+      placeholder: "#12"
+    validations:
+      required: false
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: >-
+        The outcome, what changes for its users or the system; the rules and decision records it builds on; and how
+        its acceptance is checked: a test, a command or a result anyone can see.
+      placeholder: |
+        Outcome: ...
+        Acceptance: ...
+    validations:
+      required: true
+  - type: textarea
+    id: not-in-this-issue
+    attributes:
+      label: Not in this issue
+      description: What it leaves out, naming the issue that takes each part, when one does.
+    validations:
+      required: false
+  - type: textarea
+    id: depends-on
+    attributes:
+      label: Depends on
+      description: >-
+        The issues it is blocked by, such as `#41, #42.`, or `Nothing.` After filing, add each as a "blocked by" link:
+        the links are the record.
+      placeholder: Nothing.
+    validations:
+      required: false
