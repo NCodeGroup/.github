@@ -1,0 +1,88 @@
+# 0020. A GitHub project is scored by OpenSSF Scorecard
+
+- **Status:** Accepted (amended by 0022, 0025, 0034, 0035, 0037 and 0041)
+- **Date:** 2026-11-14
+
+## Context
+
+OpenSSF Scorecard grades a repository's supply-chain practice from outside, with a score from 0 to 10 over a fixed set
+of checks. The Buffers library, built from this template, scored 7.8 on 2026-11-15 (Scorecard v5.6.0). The table follows
+Scorecard's source. Some checks the template controls; others need a person, a second reviewer or a registration the
+template cannot make.
+
+On Scorecard v5.7.0, three projects from the template, each with one writer and NCode Review's approver set up
+([ADR-0036](0036-a-required-approval-is-met-by-ncode-reviews-approver-app.md)), scored 9.4 (NCodeGroup/Buffers,
+2026-11-24), 9.5 (NCodeGroup/PropertyBag, 2026-11-24) and 8.2 (NCodeGroup/code-review, 2026-11-27): Branch-Protection
+8, CII-Best-Practices 5 (passing) and Contributors 0 to 3 on all three, Signed-Releases 10 on the two libraries, and
+Code-Review 8 to 10 as approved pull requests fill the last 30 commits
+([#437](https://github.com/NCodeGroup/project-template/issues/437)).
+
+## Decision
+
+Every GitHub project runs `.github/workflows/scorecard.yml`. The workflow publishes the score for the README badge and
+uploads its findings to code scanning. A private repository must list `.github/workflows/scorecard.yml` in its
+`project_owned_files` answer and delete it, because publishing the score needs a public repository: the template cannot
+see a repository's visibility, so it does not leave the workflow out by itself.
+
+The table lists each check, what the template does for it and what needs a person.
+
+| Check | The template | Needs a person |
+| --- | --- | --- |
+| Binary-Artifacts | Commits no binary files. | Nothing. |
+| Dangerous-Workflow | No workflow runs untrusted pull request code with a privileged token. | Nothing. |
+| Pinned-Dependencies | Workflow actions are pinned by commit SHA ([ADR-0008](0008-external-inputs-are-pinned-and-kept-current.md)). | Nothing. |
+| Token-Permissions | Every workflow's top-level token is read-only or empty. Job-level write is only where a job needs it: `issues: write` in `template-update.yml`; `contents: write`, `actions: write` and `id-token: write` in `tag-release.yml`; `contents: write` and `pull-requests: write` in `code-review-auto-merge.yml`; `id-token: write` in `code-review.yml`; `security-events: write` and `id-token: write` in `scorecard.yml`; and, for a library, `id-token: write` in `publish.yml`; `attestations: write`, `contents: write` and `id-token: write` in `release-provenance.yml`; and `contents: write`, `pull-requests: write` and `actions: write` in `raise-baseline.yml`. | Nothing. |
+| Dependency-Update-Tool | Dependabot is configured. | Nothing. |
+| Security-Policy | `SECURITY.md` ships. | Nothing. |
+| License | Nothing: the template writes a license file only for an Apache-2.0 or MIT `license` answer ([ADR-0024](0024-a-project-is-licensed-under-apache-2-0-unless-it-answers-otherwise.md)). | A license file at the repository root: `.\.template\Update-Project.ps1 -Data @{ license = 'Apache-2.0' }` writes one, or add the text of the license answered. |
+| SAST | CodeQL runs through the ruleset. | Nothing. |
+| Vulnerabilities | Dependency and vulnerability scanning is configured. | Fix the findings it reports. |
+| CI-Tests | Pull requests run the CI workflow. | Nothing. |
+| Maintained | Scheduled automation keeps the repository active. | Keep committing and answering issues. |
+| Signed-Releases | Nothing: a release `tag-release.yml` publishes has no assets, and Scorecard counts only the releases with assets among the five newest, so the check is inconclusive and left out of the score. From Scorecard v5.7.0, which `scorecard.yml` runs, a release with assets scores 10 when it is immutable, as `tools/Set-RepositoryBaseline.ps1` makes this project's releases where no workflow attaches files after publishing ([ADR-0028](0028-github-releases-are-immutable-and-their-tags-signed.md)). | Nothing while the releases have no assets. A project whose own workflow attaches files scores 10 a release either way: upload them to a draft release before publishing it and turn immutable releases on with `gh api -X PUT repos/OWNER/REPO/immutable-releases`, which the baseline leaves off where a workflow uploads release assets, or attach a `*.intoto.jsonl` provenance file to each mutable release; a signature alone scores 8. Never attest packages downloaded from a registry, which claims a build the workflow never ran. |
+| Packaging | Nothing: the template publishes no packages for this project. | A workflow that publishes its packages, if it ships any. |
+| Branch-Protection | The ruleset blocks deletion and force pushes, requires a pull request, up-to-date checks and resolved conversations, and allows no bypass, so it applies to administrators. Where `code-review.yml` passes `approve: true`, and NCode Review's approver is set up or a second person has write access, it also requires one approval, dismisses stale approvals and requires approval of the last push ([ADR-0022](0022-ncode-reviews-approval-gates-the-merge.md), [ADR-0034](0034-with-one-writer-the-baseline-requires-no-approval.md), [ADR-0036](0036-a-required-approval-is-met-by-ncode-reviews-approver-app.md)), which passes tier 2, and tier 2 gates every later tier: the score rises from 4 to 8. Otherwise it requires neither, and the score stays at 4. It never requires approval of the last push without an approval. | Tier 2: one required approval, which only a reviewer with write access other than the author can give, such as NCode Review's approver ([ADR-0036](0036-a-required-approval-is-met-by-ncode-reviews-approver-app.md)) or a second person with write access; GitHub counts no approval from the author or from NCode Review's own app ([ADR-0034](0034-with-one-writer-the-baseline-requires-no-approval.md)). 9 and 10 then need tier 4's two approvals and code owners' review. With one writer, dismiss the alert ([ADR-0035](0035-a-sole-maintainer-dismisses-the-scorecard-alerts-one-person-cannot-clear.md)). |
+| Code-Review | Any non-author approval counts, a bot's included; where NCode Review runs, it approves a clean review ([ADR-0022](0022-ncode-reviews-approval-gates-the-merge.md)), else nothing approves. | A non-author approval. |
+| Contributors | None. | Recent contributors from at least 3 companies, each with 5 of the last 30 commits. With one writer, dismiss the alert ([ADR-0035](0035-a-sole-maintainer-dismisses-the-scorecard-alerts-one-person-cannot-clear.md)). |
+| Fuzzing | Nothing: the template adds no property tests or package. | Write property tests with the stack's property-test library, for .NET `FsCheck.Xunit` with `[Property(Replay = Seed)]`, which Scorecard detects. |
+| CII-Best-Practices | The six documents ([ADR-0023](0023-a-project-ships-the-documents-the-best-practices-silver-level-asks-for.md)) and `docs/best-practices-criteria.md`, which maps every criterion to the answer to expect and its evidence ([ADR-0025](0025-every-best-practices-criterion-is-mapped-in-a-template-owned-page.md)). | Register at https://www.bestpractices.dev: in progress 2, passing 5, silver 7, gold 10; silver needs `access_continuity`, a second owner of the organization; gold needs two-person review, two unassociated contributors, the organization's two-factor settings and a security review. With one writer, passing (5) is the most; dismiss the alert ([ADR-0035](0035-a-sole-maintainer-dismisses-the-scorecard-alerts-one-person-cannot-clear.md)). |
+
+## Options considered
+
+- Requiring one approving review in the ruleset. Chosen where NCode Review approves (ADR-0022); elsewhere a sole
+  maintainer could not merge.
+- Running Scorecard without publishing the score. Rejected: the badge and code scanning findings are the point.
+- Running the Scorecard workflow in every GitHub project (chosen).
+
+## Consequences
+
+- A solo project's score tops out below 10, for the reasons in the table's last column: Contributors, Code-Review's
+  non-author approval, Branch-Protection's tier 2 (a required approval, which a sole maintainer meets only through
+  NCode Review's approver) and silver's second owner need other people or NCode Review. With NCode Review, Code-Review
+  rises toward 10 and Branch-Protection reaches 8 where its approver is set up, with one writer too, or a second person
+  has write access ([ADR-0034](0034-with-one-writer-the-baseline-requires-no-approval.md),
+  [ADR-0036](0036-a-required-approval-is-met-by-ncode-reviews-approver-app.md)); with one writer, the alerts ADR-0035
+  lists are dismissed.
+- A private repository lists the workflow in `project_owned_files` and deletes it; until it does, the workflow
+  fails to publish its score.
+
+## References
+
+- [ADR-0005](0005-the-default-branch-accepts-changes-only-through-pull-requests.md): the default branch accepts changes
+  only through pull requests.
+- [ADR-0008](0008-external-inputs-are-pinned-and-kept-current.md): external inputs are pinned and kept current.
+- [ADR-0022](0022-ncode-reviews-approval-gates-the-merge.md): where NCode Review approves, the ruleset requires an
+  approval.
+- [ADR-0034](0034-with-one-writer-the-baseline-requires-no-approval.md): with one writer, the baseline requires no
+  approval.
+- [ADR-0035](0035-a-sole-maintainer-dismisses-the-scorecard-alerts-one-person-cannot-clear.md): a sole maintainer
+  dismisses the Scorecard alerts one person can't clear.
+- [ADR-0036](0036-a-required-approval-is-met-by-ncode-reviews-approver-app.md): a required approval is met by NCode
+  Review's approver app.
+- [ADR-0023](0023-a-project-ships-the-documents-the-best-practices-silver-level-asks-for.md): a project ships the
+  documents the Best Practices silver level asks for.
+- [ADR-0025](0025-every-best-practices-criterion-is-mapped-in-a-template-owned-page.md): every Best Practices criterion is
+  mapped in a template-owned page.
+- `.github/workflows/scorecard.yml`
+- Scorecard's `checks/evaluation/branch_protection.go`, `checks/evaluation/signed_releases.go` and
+  `probes/codeApproved/impl.go`
